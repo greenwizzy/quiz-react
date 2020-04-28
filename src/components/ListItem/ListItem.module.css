@@ -1,0 +1,21 @@
+.ListItem {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.ListItem:hover {
+    background: rgba(255, 255, 255, .2);
+    transition: background .3s ease-in-out;
+}
+
+.ListItem.success{
+background: rgba(149, 228, 60, 0.7);
+}
+
+
+.ListItem.error {
+    background: rgba(224, 34, 59, 0.7);
+}
