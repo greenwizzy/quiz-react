@@ -2,7 +2,6 @@ import React from 'react'
 import classes from './ListItem.module.css'
 
 const ListItem = (props) => {
-  console.log(props)
   const cls = [classes.ListItem]
 
   if (props.rightAnswerUI && props.answer.id === props.rightAnswerID) {
