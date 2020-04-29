@@ -9,6 +9,7 @@ class Quiz extends Component {
     isFinished: false,
     activeQuestion: 0,
     answerState: null,
+    rightAnswerUI: false,
     quiz: [
       {
         question: 'Какого цвета небо?',
@@ -68,6 +69,7 @@ class Quiz extends Component {
           [answerId]: 'error',
         },
         results,
+        rightAnswerUI: true,
       })
     }
 
@@ -80,6 +82,7 @@ class Quiz extends Component {
         this.setState({
           activeQuestion: this.state.activeQuestion + 1,
           answerState: null,
+          rightAnswerUI: false,
         })
       }
       window.clearTimeout(timeout)
@@ -92,6 +95,7 @@ class Quiz extends Component {
       answerState: null,
       isFinished: false,
       results: {},
+      rightAnswerUI: false,
     })
   }
 
@@ -115,6 +119,10 @@ class Quiz extends Component {
               quizLength={this.state.quiz.length}
               quizId={this.state.activeQuestion + 1}
               state={this.state.answerState}
+              rightAnswerID={
+                this.state.quiz[this.state.activeQuestion].rightAnswerId
+              }
+              rightAnswerUI={this.state.rightAnswerUI}
             />
           )}
         </div>
