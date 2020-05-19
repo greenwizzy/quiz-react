@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import classes from './Quiz.module.css'
 import ActiveQuiz from '../../components/ActiveQuiz/ActiveQuiz'
 import FinishedQuiz from '../../components/FinishedQuiz/FinishedQuiz'
+import axios from '../../axios/axios-quiz'
+import Loader from '../../components/UI/Loader/Loader'
 
 class Quiz extends Component {
   state = {
@@ -10,30 +12,8 @@ class Quiz extends Component {
     activeQuestion: 0,
     answerState: null,
     rightAnswerUI: false,
-    quiz: [
-      {
-        question: 'Какого цвета небо?',
-        rightAnswerId: 1,
-        id: 1,
-        answers: [
-          { text: 'Синий', id: 1 },
-          { text: 'Красный', id: 2 },
-          { text: 'Черный', id: 3 },
-          { text: 'Фиолетовый', id: 4 },
-        ],
-      },
-      {
-        question: 'Сколько дней в феврале в 2020 году?',
-        rightAnswerId: 4,
-        id: 2,
-        answers: [
-          { text: '31', id: 1 },
-          { text: '30', id: 2 },
-          { text: '28', id: 3 },
-          { text: '29', id: 4 },
-        ],
-      },
-    ],
+    quiz: [],
+    loading: true,
   }
 
   isQuizFinished() {
@@ -99,13 +79,30 @@ class Quiz extends Component {
     })
   }
 
+  async componentDidMount() {
+    try {
+      const response = await axios.get(
+        `/quizes/${this.props.match.params.id}.json`
+      )
+      const quiz = response.data
+      this.setState({
+        quiz,
+        loading: false,
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   render() {
     return (
       <div className={classes['Quiz']}>
         <div className={classes.QuizWrapper}>
           <h1>Ответьте на все вопросы</h1>
 
-          {this.state.isFinished ? (
+          {this.state.loading ? (
+            <Loader />
+          ) : this.state.isFinished ? (
             <FinishedQuiz
               results={this.state.results}
               quiz={this.state.quiz}
