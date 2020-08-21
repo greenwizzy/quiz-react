@@ -88,7 +88,7 @@ export default class QuizCreator extends Component {
     //     })
     //     .catch((error) => console.log(error))
     try {
-      const response = await axios.post('/quizes.json', this.state.quiz)
+      await axios.post('/quizes.json', this.state.quiz)
 
       this.setState({
         quiz: [],
